@@ -61,6 +61,42 @@ function Footer() {
                     }}>
                         © 2024 Powered by <a className='hover:underline' href="https://file001.cn" target="_blank">Hyper001的小破站</a>
                     </span>
+                    <!DOCTYPE html>
+<html>
+<head>
+    <title>带音乐播放器的页面</title>
+    <style>
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        audio {
+            width: 100%; /* 设置播放器宽度 */
+        }
+    </style>
+</head>
+<body>
+
+<!-- 页面内容 -->
+<div>
+    <h1>欢迎来到我的网站</h1>
+    <p>这里是一些文本。</p>
+</div>
+
+<!-- Footer 部分 -->
+<footer>
+    <audio controls>
+        <source src="your-song-file.mp3" type="audio/mpeg">
+        您的浏览器不支持音频元素。
+    </audio>
+</footer>
+
+</body>
+</html>
                     {config.get<boolean>('rss') && <>
                         <Spliter />
                         <Popup trigger={
