@@ -1,30 +1,35 @@
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
 import { ClientConfigContext } from '../state/config';
 import { Helmet } from "react-helmet";
 import { siteName } from '../utils/constants';
 import { useTranslation } from "react-i18next";
 import { useLoginModal } from '../hooks/useLoginModal';
+import AudioPlayer from 'react-h5-audio-player'; // 导入音乐播放器
+import 'react-h5-audio-player/lib/styles.css'; // 导入音乐播放器样式
 
 type ThemeMode = 'light' | 'dark' | 'system';
+
 function Footer() {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
     const [modeState, setModeState] = useState<ThemeMode>('system');
     const config = useContext(ClientConfigContext);
     const footerHtml = config.get<string>('footer');
     const loginEnabled = config.get<boolean>('login.enabled');
     const [doubleClickTimes, setDoubleClickTimes] = useState(0);
-    const { LoginModal, setIsOpened } = useLoginModal()
+    const { LoginModal, setIsOpened } = useLoginModal();
+    const [showMusicPlayer, setShowMusicPlayer] = useState(false); // 控制音乐播放器显示状态
+    const [audioSrc, setAudioSrc] = useState('/path/to/default/audio/file.mp3'); // 默认音频文件路径
+
     useEffect(() => {
         const mode = localStorage.getItem('theme') as ThemeMode || 'system';
         setModeState(mode);
         setMode(mode);
-    }, [])
+    }, []);
 
     const setMode = (mode: ThemeMode) => {
         setModeState(mode);
         localStorage.setItem('theme', mode);
-
 
         if (mode !== 'system' || (!('theme' in localStorage) && window.matchMedia(`(prefers-color-scheme: ${mode})`).matches)) {
             document.documentElement.setAttribute('data-color-mode', mode);
@@ -96,6 +101,19 @@ function Footer() {
                     <ThemeButton mode='system' current={modeState} label="Toggle system mode" icon="ri-computer-line" onClick={setMode} />
                     <ThemeButton mode='dark' current={modeState} label="Toggle dark mode" icon="ri-moon-line" onClick={setMode} />
                 </div>
+                {/* 添加音乐播放器 */}
+                {showMusicPlayer && (
+                    <AudioPlayer
+                        src={audioSrc}
+                        onPlay={(e) => console.log("onPlay", e)}
+                        onPause={(e) => console.log("onPause", e)}
+                        autoPlay={false}
+                        showJumpControls={false}
+                        layout="horizontal"
+                        customAdditionalControls={[]}
+                    />
+                )}
+                <button onClick={() => setShowMusicPlayer(!showMusicPlayer)}>Toggle Music Player</button>
             </div>
             <LoginModal />
         </footer>
@@ -103,10 +121,7 @@ function Footer() {
 }
 
 function Spliter() {
-    return (<span className='px-1'>
-        |
-    </span>
-    )
+    return (<span className='px-1'>|</span>);
 }
 
 function ThemeButton({ current, mode, label, icon, onClick }: { current: ThemeMode, label: string, mode: ThemeMode, icon: string, onClick: (mode: ThemeMode) => void }) {
