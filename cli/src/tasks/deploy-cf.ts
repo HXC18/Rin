@@ -195,7 +195,7 @@ export async function runCloudflareDeploy(target: "all" | "server" | "client" = 
       #:schema node_modules/wrangler/config-schema.json
       name = "${workerName}"
       main = "${serverMain}"
-      compatibility_date = "2026-01-20"
+      compatibility_date = "2026-01-20"\n      workers_dev = true\n      routes = [\n        { pattern = "blog.hyper001.site", custom_domain = true }\n      ]
 
       [assets]
       directory = "./dist/client"

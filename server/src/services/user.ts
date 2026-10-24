@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { eq } from "drizzle-orm";
+import { eq, and, ne } from "drizzle-orm";
 import { getCookie, setCookie, deleteCookie } from "hono/cookie";
 import type { AppContext } from "../core/hono-types";
 import { profileAsync } from "../core/server-timing";
@@ -116,9 +116,11 @@ export function UserService(): Hono {
                 sameSite: 'Lax',
             });
         } else {
-            // If no user exists, check if this is the first user
-            const anyUserCheck = await profileAsync(c, 'user_first_lookup', () => db.query.users.findMany({ limit: 1 }));
-            if (anyUserCheck.length === 0) {
+            // Check if any GitHub admin exists, or if this is the first GitHub login
+            const githubAdminCheck = await profileAsync(c, 'user_first_lookup', () => db.query.users.findFirst({
+                where: and(eq(users.permission, 1), ne(users.openid, 'admin'))
+            }));
+            if (!githubAdminCheck) {
                 profile.permission = 1;
             }
 
