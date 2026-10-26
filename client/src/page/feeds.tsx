@@ -101,8 +101,10 @@ export function FeedsPage() {
                     </div>
                     <Waiting for={status === 'idle'}>
                         <div className={feedListClass}>
-                            {currentFeedData.map(({ id, ...feed }: any) => (
-                                <FeedCard key={id} id={id} {...feed} />
+                            {currentFeedData.map(({ id, ...feed }: any, index: number) => (
+                                <div key={id} className="feed-card-wrapper" style={{ animationDelay: `${index * 70}ms` }}>
+                                    <FeedCard id={id} {...feed} />
+                                </div>
                             ))}
                         </div>
                         <div className="wauto flex flex-row items-center mt-4 ani-show">

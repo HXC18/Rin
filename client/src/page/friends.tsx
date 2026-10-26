@@ -199,9 +199,9 @@ function Friend({ friend }: { friend: FriendItem }) {
     ]
     return (
         <>
-            <a title={friend.name} href={friend.url} target="_blank" rel="noopener noreferrer" className="relative flex min-w-0 w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-w p-4 bg-button">
+            <a title={friend.name} href={friend.url} target="_blank" rel="noopener noreferrer" className="relative flex min-w-0 w-full flex-col items-center justify-center overflow-hidden rounded-xl bg-w p-4 bg-button group transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/5 dark:hover:shadow-black/20">
                 <ImageWithFallback
-                    className="h-16 w-16 rounded-full"
+                    className="h-16 w-16 rounded-full transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
                     imageClassName={friend.health.length > 0 ? "grayscale" : ""}
                     src={friend.avatar}
                     alt={friend.name}

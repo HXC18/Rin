@@ -4,7 +4,7 @@ export function HashTag({ name }: { name: string }) {
     const [, setLocation] = useLocation()
     return (
         <button onClick={(e) => { e.preventDefault(); setLocation(`/hashtag/${name}`) }}
-            className="max-w-full min-w-0 text-base t-secondary hover:text-theme text-pretty" >
+            className="max-w-full min-w-0 text-base t-secondary hover:text-theme text-pretty transition-all duration-200 hover:scale-105 active:scale-95" >
             <div className="flex min-w-0 gap-0.5">
                 <div className="shrink-0 text-sm italic opacity-70">#</div>
                 <div className="min-w-0 truncate text-sm opacity-70">

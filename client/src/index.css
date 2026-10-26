@@ -208,3 +208,47 @@ a.toc-link {
 .is-active-link::before {
   @apply bg-theme;
 }
+
+
+/* Smooth Scrolling & Polish */
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: rgba(var(--rin-theme-rgb, 252, 70, 107), 0.22);
+  color: inherit;
+}
+
+/* Custom Slim Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.22);
+  border-radius: 9999px;
+  transition: background-color 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.45);
+}
+
+/* Staggered Card Entrance Animation */
+.feed-card-wrapper {
+  animation: cardFadeInUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes cardFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
